@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "../css/Home.css";
 
 class Home extends Component {
   constructor(props) {
@@ -8,10 +9,15 @@ class Home extends Component {
 
   componentDidMount() {
     document.title = "Home";
+    document.body.classList.add("white");
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove("white");
   }
 
   render() {
-    return <div>Sumanth</div>;
+    return <div>Welcome to MyContext</div>;
   }
 }
 

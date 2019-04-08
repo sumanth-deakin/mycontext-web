@@ -3,7 +3,7 @@
   --input-padding-y: .75rem;
 }
 
-body {
+html,body.black {
   background: #282c34;
 }
 
