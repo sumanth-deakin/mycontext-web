@@ -19,6 +19,11 @@ class Register extends Component {
 
   componentDidMount() {
     document.title = "Register";
+    document.body.classList.add("black");
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove("black");
   }
 
   handleSubmit = event => {
