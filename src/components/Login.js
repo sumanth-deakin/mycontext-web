@@ -118,7 +118,7 @@ class Login extends Component {
                     Login
                   </button>
                   <hr className="my-4" />
-                  <p className="text-right">New User? <a href="/Register">SignUp</a></p>
+                  <p className="text-right">New User? <a href="/register">SignUp</a></p>
                   
                 </form>
               </div>
