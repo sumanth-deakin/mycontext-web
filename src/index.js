@@ -15,7 +15,6 @@ ReactDOM.render(
     <React.Fragment>
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
-      <Route exact path="/register" component={Register} />
       <PrivateRoute exact path="/records" component={Records} />
       <PrivateRoute exact path="/" component={Home} />
     </React.Fragment>
