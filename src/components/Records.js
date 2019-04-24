@@ -67,45 +67,49 @@ class Records extends Component {
           <div className="container-fluid">
             <div className="row">
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <SideBar current="records"/>
+                <SideBar current="records" />
               </nav>
               <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60">
                 <h2>Your Medical Records</h2>
                 <hr />
-                <table className="table">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Tumor Size</th>
-                      <th scope="col">Gender</th>
-                      <th scope="col">Year of Birth</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Transfer</th>
-                      <th scope="col">View</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.data.map((record, index) => (
-                      <tr key={index}>
-                        <th scope="row">{record.name}</th>
-                        <td>{record.cs_tumor_size}</td>
-                        <td>{record.gender}</td>
-                        <td>{record.year_of_birth}</td>
-                        <td>{record.price}</td>
-                        <td>
-                          <button type="button" className="btn btn-danger">
-                            Transfer
-                          </button>
-                        </td>
-                        <td>
-                          <button type="button" className="btn btn-primary">
-                            View
-                          </button>
-                        </td>
+                {this.state.data.length > 0 ? (
+                  <table className="table">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tumor Size</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Year of Birth</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Transfer</th>
+                        <th scope="col">View</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {this.state.data.map((record, index) => (
+                        <tr key={index}>
+                          <th scope="row">{record.name}</th>
+                          <td>{record.cs_tumor_size}</td>
+                          <td>{record.gender}</td>
+                          <td>{record.year_of_birth}</td>
+                          <td>{record.price}</td>
+                          <td>
+                            <button type="button" className="btn btn-danger">
+                              Transfer
+                            </button>
+                          </td>
+                          <td>
+                            <button type="button" className="btn btn-primary">
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                ) : (
+                  <p>No medical records found, create one.</p>
+                )}
               </div>
             </div>
           </div>

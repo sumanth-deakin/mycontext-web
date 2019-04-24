@@ -186,8 +186,7 @@ class Register extends Component {
                 </div>
               </div>
             </div>
-          </div>
-        )}
+          </div>)}
       </div>
     );
   }
