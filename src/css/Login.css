@@ -3,8 +3,9 @@
   --input-padding-y: .75rem;
 }
 
-html,body.black {
-  background: #282c34;
+html,
+body.black {
+  background: #272b30;
 }
 
 .card-signin {
@@ -98,27 +99,35 @@ html,body.black {
 }
 
 
-.btn-primary{
+.btn-primary {
   background: #0ca678 !important;
-  border-color:#0ca678 !important;
+  border-color: #0ca678 !important;
 }
 
-.btn-primary:hover{
+.btn-primary:hover {
   background: #087f5b !important;
-  border-color:#087f5b !important;
+  border-color: #087f5b !important;
 }
 
-.btn-primary.create{
+.btn-primary.create {
   background: #f59f00 !important;
-  border-color:#f59f00 !important;
+  border-color: #f59f00 !important;
 }
 
-.btn-primary.create:hover{
+.btn-primary.create:hover {
   background: #e67700 !important;
-  border-color:#e67700 !important;
+  border-color: #e67700 !important;
 }
 
-.mtb{
+.mtb {
   margin-top: auto !important;
   margin-bottom: auto !important;
+}
+
+.select {
+  border-radius: 25px !important;
+  padding-bottom: 10px !important;
+  padding-top: 10px !important;
+  padding-left: 20px !important;
+  height: 50px;
 }
