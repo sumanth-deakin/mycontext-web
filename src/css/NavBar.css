@@ -1,0 +1,19 @@
+.bg-dark{
+    background-color: #272b30 !important;
+}
+
+.navbar .form-control {
+    padding: .75rem 1rem;
+    border-width: 0;
+    border-radius: 0;
+}
+
+.form-control-dark {
+    color: #fff;
+    background-color: rgba(255, 255, 255, .1);
+    border-color: rgba(255, 255, 255, .1);
+}
+
+.navbar-brand{
+    font-weight: 600
+}
