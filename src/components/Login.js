@@ -5,15 +5,18 @@ import {
   ToastsStore,
   ToastsContainerPosition
 } from "react-toasts";
+import { RingLoader } from "react-spinners";
+
 import "../css/Login.css";
+var logo = require("../img/logo.png");
 
 class Login extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       email: "",
       password: "",
+      loading: false
     };
   }
 
@@ -29,30 +32,33 @@ class Login extends Component {
   handleSubmit = event => {
     event.preventDefault();
     var self = this;
+    self.setState({ loading: true });
 
-      var url = "http://localhost:9000/user/login";
+    var url = "http://localhost:9000/user/login";
 
-      var payload = {
-        email: this.state.email,
-        password: this.state.password
-      };
+    var payload = {
+      email: this.state.email,
+      password: this.state.password
+    };
 
-      axios
-        .post(url, payload)
-        .then(function(response) {
-          if (response.data.success) {
-            console.log(response.data)
-            localStorage.setItem("access-token", response.data.token);
-            localStorage.setItem("name", response.data.name);
-            localStorage.setItem("email", response.data.email);
-            self.props.history.push("/");
-          } else {
-            ToastsStore.error(response.data.message);
-          }
-        })
-        .catch(function(error) {
-          ToastsStore.error("Something went wrong!");
-        });
+    axios
+      .post(url, payload)
+      .then(function(response) {
+        if (response.data.success) {
+          localStorage.setItem("access-token", response.data.token);
+          localStorage.setItem("name", response.data.name);
+          localStorage.setItem("user_id", response.data.user_id);
+          localStorage.setItem("email", response.data.email);
+          self.props.history.push("/");
+        } else {
+          self.setState({ loading: false });
+          ToastsStore.error(response.data.message);
+        }
+      })
+      .catch(function(error) {
+        self.setState({ loading: false });
+        ToastsStore.error("Something went wrong!");
+      });
   };
 
   handleChange = event => {
@@ -62,69 +68,91 @@ class Login extends Component {
   render() {
     return (
       <div className="container h-100">
-       <ToastsContainer
+        <ToastsContainer
           store={ToastsStore}
           position={ToastsContainerPosition.TOP_RIGHT}
         />
-        <div className="row h-100">
-          <div className="col-sm-9 col-md-7 col-lg-5 mx-auto mtb">
-            <div className="card card-signin">
-              <div className="card-body">
-                <h5 className="card-title text-center">Welcome To MyContext</h5>
-                <form className="form-signin"  onSubmit={this.handleSubmit}>
-                  <div className="form-label-group">
-                    <input
-                      type="email"
-                      id="inputEmail"
-                      className="form-control"
-                      placeholder="Email address"
-                      name="email"
-                      value={this.state.email}
-                      onChange={this.handleChange}
-                      required
-                      autoFocus
-                    />
-                    <label htmlFor="inputEmail">Email address</label>
-                  </div>
 
-                  <div className="form-label-group">
-                    <input
-                      type="password"
-                      id="inputPassword"
-                      className="form-control"
-                      placeholder="Password"
-                      name="password"
-                      value={this.state.password}
-                      onChange={this.handleChange}
-                      required
-                    />
-                    <label htmlFor="inputPassword">Password</label>
-                  </div>
+        {this.state.loading ? (
+          <div className="loading">
+            <RingLoader
+              sizeUnit={"px"}
+              size={100}
+              color={"#0ca678"}
+              loading="true"
+            />
+          </div>
+        ) : (
+          <div className="row h-100">
+            <div className="col-sm-9 col-md-7 col-lg-5 mx-auto mtb">
+              <div className="card card-signin">
+                <div className="card-body">
+                  <h5 className="card-title text-center">
+                    <img src={logo} height="50px" width="50px" alt="Logo" />
+                    Welcome To MyContext
+                  </h5>
+                  <form className="form-signin" onSubmit={this.handleSubmit}>
+                    <div className="form-label-group">
+                      <input
+                        type="email"
+                        id="inputEmail"
+                        className="form-control"
+                        placeholder="Email address"
+                        name="email"
+                        value={this.state.email}
+                        onChange={this.handleChange}
+                        required
+                        autoFocus
+                      />
+                      <label htmlFor="inputEmail">Email address</label>
+                    </div>
 
-                  <div className="custom-control custom-checkbox mb-3">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="customCheck1"
-                    />
-                    <label className="custom-control-label" htmlFor="customCheck1">
-                      Remember password
-                    </label>
-                  </div>
-                  <button
-                    className="btn btn-lg btn-primary btn-block text-uppercase"
-                    type="submit"
-                  >
-                    Login
-                  </button>
-                  <hr className="my-4" />
-                  <p className="text-right">New User? <a href="/register">SignUp</a></p>
-                  
-                </form>
+                    <div className="form-label-group">
+                      <input
+                        type="password"
+                        id="inputPassword"
+                        className="form-control"
+                        placeholder="Password"
+                        name="password"
+                        value={this.state.password}
+                        onChange={this.handleChange}
+                        required
+                      />
+                      <label htmlFor="inputPassword">Password</label>
+                    </div>
+
+                    <div className="custom-control custom-checkbox mb-3">
+                      <input
+                        type="checkbox"
+                        className="custom-control-input"
+                        id="customCheck1"
+                      />
+                      <label
+                        className="custom-control-label"
+                        htmlFor="customCheck1"
+                      >
+                        Remember password
+                      </label>
+                    </div>
+                    <button
+                      className="btn btn-lg btn-primary btn-block text-uppercase"
+                      type="submit"
+                    >
+                      Login
+                    </button>
+                    <hr className="my-4" />
+                    <p className="text-right">
+                      New User?{" "}
+                      <a href="/register" className="text-primary">
+                        SignUp
+                      </a>
+                    </p>
+                  </form>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }
