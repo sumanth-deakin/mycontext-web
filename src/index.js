@@ -7,6 +7,7 @@ import "popper.js";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
+import Records from "./components/Records";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
@@ -14,6 +15,8 @@ ReactDOM.render(
     <React.Fragment>
       <Route exact path="/login" component={Login} />
       <Route exact path="/register" component={Register} />
+      <Route exact path="/register" component={Register} />
+      <PrivateRoute exact path="/records" component={Records} />
       <PrivateRoute exact path="/" component={Home} />
     </React.Fragment>
   </Router>,
