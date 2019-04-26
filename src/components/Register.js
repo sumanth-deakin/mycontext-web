@@ -35,11 +35,12 @@ class Register extends Component {
   handleSubmit = event => {
     event.preventDefault();
     var self = this;
-    self.setState({ loading: true });
 
     if (this.state.password !== this.state.confirmPassword) {
       ToastsStore.warning("Password doesn't match");
     } else {
+      self.setState({ loading: true });
+
       var url = "http://localhost:9000/user/register";
 
       var payload = {
@@ -186,7 +187,8 @@ class Register extends Component {
                 </div>
               </div>
             </div>
-          </div>)}
+          </div>
+        )}
       </div>
     );
   }
