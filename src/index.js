@@ -8,6 +8,8 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Home from "./components/Home";
 import Records from "./components/Records";
+import ViewRecord from "./components/ViewRecord";
+import AddRecord from "./components/AddRecord";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
@@ -17,6 +19,8 @@ ReactDOM.render(
       <Route exact path="/register" component={Register} />
       <PrivateRoute exact path="/records" component={Records} />
       <PrivateRoute exact path="/" component={Home} />
+      <PrivateRoute exact path="/add" component={AddRecord} />
+      <PrivateRoute path="/view/:id" component={ViewRecord} />
     </React.Fragment>
   </Router>,
   document.getElementById("root")
