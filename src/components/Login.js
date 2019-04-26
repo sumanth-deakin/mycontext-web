@@ -142,7 +142,7 @@ class Login extends Component {
                     </button>
                     <hr className="my-4" />
                     <p className="text-right">
-                      New User?{" "}
+                      New User?
                       <a href="/register" className="text-primary">
                         SignUp
                       </a>
