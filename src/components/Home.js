@@ -72,7 +72,7 @@ class Home extends Component {
               <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60">
                 <h2>Medical Records</h2>
                 <hr />
-                <table className="table">
+                <table className="table table-striped table-bordered">
                   <thead className="thead-dark">
                     <tr>
                       <th scope="col">Name</th>
