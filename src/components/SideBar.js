@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "../css/SideBar.css";
 import Icon from "@mdi/react";
-import { mdiHome, mdiFile } from "@mdi/js";
+import { mdiHome, mdiFile,mdiPlus } from "@mdi/js";
 
 class SideBar extends Component {
   constructor(props) {
@@ -52,6 +52,28 @@ class SideBar extends Component {
                 href="/records"
               >
                 Records
+              </a>
+            </div>
+          </li>
+
+          <li className="nav-item">
+            <div className="box">
+              <Icon
+                path={mdiPlus}
+                size={1}
+                horizontal
+                vertical
+                rotate={180}
+                color={this.props.current === "add" ? "" : "#9e9e9e"}
+              />
+              <a
+                className={
+                  "nav-link " +
+                  (this.props.current === "add" ? "active" : "")
+                }
+                href="/add"
+              >
+                Add Record
               </a>
             </div>
           </li>
