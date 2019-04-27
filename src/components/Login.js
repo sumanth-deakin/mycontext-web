@@ -34,7 +34,7 @@ class Login extends Component {
     var self = this;
     self.setState({ loading: true });
 
-    var url = "http://localhost:9000/user/login";
+    var url = "https://api-mycontext.herokuapp.com/user/login";
 
     var payload = {
       email: this.state.email,
