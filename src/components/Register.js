@@ -54,6 +54,7 @@ class Register extends Component {
         .post(url, payload)
         .then(function(response) {
           if (response.data.success) {
+            ToastsStore.error("Registration successful, login to continue..");
             self.props.history.push("/login");
           } else {
             self.setState({ loading: false });

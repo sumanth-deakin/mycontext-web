@@ -8,7 +8,7 @@ import {
   ToastsStore,
   ToastsContainerPosition
 } from "react-toasts";
-
+import $ from "jquery";
 import { RingLoader } from "react-spinners";
 
 class Records extends Component {
@@ -16,7 +16,9 @@ class Records extends Component {
     super(props);
     this.state = {
       data: [],
-      loading: true
+      loading: true,
+      index: undefined,
+      email: ""
     };
   }
 
@@ -53,6 +55,112 @@ class Records extends Component {
 
   viewDetails = (event, id) => {
     window.open("/view/" + id, "_blank");
+  };
+
+  editDetails = (event, id) => {
+    window.open("/edit/" + id, "_blank");
+  };
+
+  handleDelete = (event, index) => {
+    this.setState({ index: index });
+    $("#deleteModal").modal("show");
+  };
+
+  deleteRecord = event => {
+    $("#deleteModal").modal("hide");
+    const record = this.state.data[this.state.index];
+    this.setState({
+      loading: true
+    });
+
+    var url = "http://localhost:9000/record/deleteRecord";
+    var self = this;
+
+    var payload = {
+      token: localStorage.getItem("access-token"),
+      id: record._id
+    };
+
+    axios
+      .post(url, payload)
+      .then(function(response) {
+        if (response.data.success) {
+          self.setState({
+            data: self.state.data.filter((_, i) => i !== self.state.index)
+          });
+
+          console.log(self.state.data)
+
+          ToastsStore.success(response.data.message);
+          self.setState({
+            loading: false,
+            index: undefined
+          });
+        } else {
+          ToastsStore.error(response.data.message);
+        }
+      })
+      .catch(function(error) {
+        self.setState({
+          loading: false,
+          index: undefined
+        });
+        ToastsStore.error("Something went wrong!");
+      });
+  };
+
+  handleTransfer = (event, index) => {
+    this.setState({ index: index });
+    $("#transferModal").modal("show");
+  };
+
+  transferRecord = event => {
+    $("#transferModal").modal("hide");
+    const record = this.state.data[this.state.index];
+    this.setState({
+      loading: true
+    });
+
+    var url = "http://localhost:9000/record/changeOwnership";
+    var self = this;
+
+    var payload = {
+      token: localStorage.getItem("access-token"),
+      medicalrecordId: record._id,
+      newOwnerMail: this.state.email
+    };
+
+    axios
+      .post(url, payload)
+      .then(function(response) {
+        if (response.data.success) {
+          self.setState({
+            data: self.state.data.filter((_, i) => i !== self.state.index)
+          });
+
+          ToastsStore.success(response.data.message);
+        } else {
+          ToastsStore.error(response.data.message);
+        }
+
+        self.setState({
+          loading: false,
+          email: "",
+          index: undefined
+        });
+      })
+      .catch(function(error) {
+        self.setState({
+          loading: false,
+          email: "",
+          index: undefined
+        });
+        ToastsStore.error("Something went wrong!");
+      });
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
@@ -100,17 +208,35 @@ class Records extends Component {
                           <td>{record.year_of_birth}</td>
                           <td>{record.price}</td>
                           <td>
-                            <button type="button" className="btn btn-secondary">
+                            <button
+                              type="button"
+                              className="btn btn-secondary"
+                              onClick={event => {
+                                this.handleTransfer(event, index);
+                              }}
+                            >
                               Transfer
                             </button>
                           </td>
                           <td>
-                            <button type="button" className="btn btn-danger">
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                              onClick={event => {
+                                this.handleDelete(event, index);
+                              }}
+                            >
                               Delete
                             </button>
                           </td>
                           <td>
-                            <button type="button" className="btn btn-warning">
+                            <button
+                              type="button"
+                              className="btn btn-warning"
+                              onClick={event => {
+                                this.editDetails(event, record._id);
+                              }}
+                            >
                               Edit
                             </button>
                           </td>
@@ -136,6 +262,116 @@ class Records extends Component {
             </div>
           </div>
         )}
+
+        <div
+          className="modal fade"
+          id="deleteModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="deleteModalLabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="deleteModalLabel">
+                  Delete
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                Are you sure? you want to delete medical record.
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  id="deleteRecord"
+                  type="button"
+                  className="btn btn-danger"
+                  onClick={event => {
+                    this.deleteRecord(event);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="modal fade"
+          id="transferModal"
+          tabIndex="-1"
+          role="dialog"
+          aria-labelledby="transferModallabel"
+          aria-hidden="true"
+        >
+          <div className="modal-dialog" role="document">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title" id="transferModallabel">
+                  Transfer
+                </h5>
+                <button
+                  type="button"
+                  className="close"
+                  data-dismiss="modal"
+                  aria-label="Close"
+                >
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div className="modal-body">
+                <div class="form-group">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail"
+                    aria-describedby="emailHelp"
+                    placeholder="Enter email"
+                    name="email"
+                    value={this.state.email}
+                    onChange={this.handleChange}
+                    required
+                    autoFocus
+                  />
+                </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                >
+                  Close
+                </button>
+                <button
+                  id="deleteRecord"
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={event => {
+                    this.transferRecord(event);
+                  }}
+                >
+                  Transfer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
       </React.Fragment>
     );
   }
