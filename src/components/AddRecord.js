@@ -15,7 +15,8 @@ class AddRecord extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false
+      loading: false,
+      data:{}
     };
   }
 
@@ -37,78 +38,14 @@ class AddRecord extends Component {
 
     var payload = {
       token: localStorage.getItem("access-token"),
-      name: this.state.name,
-      price: this.state.price,
-      age_at_diagnosis: this.state.age_at_diagnosis,
-      behavior_code: this.state.behavior_code,
-      behavior_recode_for_analysis: this.state.behavior_recode_for_analysis,
-      breast_adjusted_ajcc_6_stage: this.state.breast_adjusted_ajcc_6_stage,
-      breast_adjusted_ajcc_6m: this.state.breast_adjusted_ajcc_6m,
-      breast_adjusted_ajcc_6n: this.state.breast_adjusted_ajcc_6n,
-      breast_adjusted_ajcc_6t: this.state.breast_adjusted_ajcc_6t,
-      cs_lymph_nodes: this.state.cs_lymph_nodes,
-      cs_lymph_nodes_eval: this.state.cs_lymph_nodes_eval,
-      cs_mets_at_dx: this.state.cs_mets_at_dx,
-      cs_mets_at_dx_bone: this.state.cs_mets_at_dx_bone,
-      cs_mets_at_dx_brain: this.state.cs_mets_at_dx_brain,
-      cs_mets_at_dx_liver: this.state.cs_mets_at_dx_liver,
-      cs_mets_at_dx_lung: this.state.cs_mets_at_dx_lung,
-      cs_mets_eval: this.state.cs_mets_eval,
-      cs_schema_ajcc_6: this.state.cs_schema_ajcc_6,
-      cs_schema_v0204: this.state.cs_schema_v0204,
-      cs_tumor_size: this.state.cs_tumor_size,
-      cs_tumor_size_ext_eval: this.state.cs_tumor_size_ext_eval,
-      derived_ajcc: this.state.derived_ajcc,
-      derived_ajcc_6_m: this.state.derived_ajcc_6_m,
-      derived_ajcc_6_n: this.state.derived_ajcc_6_n,
-      derived_ajcc_6_stage_grp: this.state.derived_ajcc_6_stage_grp,
-      derived_ajcc_6_t: this.state.derived_ajcc_6_t,
-      derived_ajcc_7_stage_grp: this.state.derived_ajcc_7_stage_grp,
-      derived_ajcc_7m: this.state.derived_ajcc_7m,
-      derived_ajcc_7n: this.state.derived_ajcc_7n,
-      derived_ajcc_7t: this.state.derived_ajcc_7t,
-      diagnostic_confirmation: this.state.diagnostic_confirmation,
-      er_status_recode_breast_cancer: this.state.er_status_recode_breast_cancer,
-      first_maligant_primary_indicator: this.state
-        .first_maligant_primary_indicator,
-      gender: this.state.gender,
-      grade: this.state.grade,
-      histology_recode_brain_groupings: this.state
-        .histology_recode_brain_groupings,
-      histology_recode_broad_groupings: this.state
-        .histology_recode_broad_groupings,
-      marital_status: this.state.marital_status,
-      month_of_diagnosis: this.state.month_of_diagnosis,
-      origin_recode_niha: this.state.origin_recode_niha,
-      patient_id: this.state.patient_id,
-      primary_by_internationals_rules: this.state
-        .primary_by_internationals_rules,
-      reason_for_no_surgery: this.state.reason_for_no_surgery,
-      regional_nodes_examined: this.state.regional_nodes_examined,
-      regional_nodes_positive: this.state.regional_nodes_positive,
-      rx_summ: this.state.rx_summ,
-      rx_summ_scope_reg_ln_sur: this.state.rx_summ_scope_reg_ln_sur,
-      rx_summ_surg_oth_reg_or_dis: this.state.rx_summ_surg_oth_reg_or_dis,
-      sequence_number: this.state.sequence_number,
-      country: this.state.country,
-      state_county_recode: this.state.state_county_recode,
-      survival_months: this.state.survival_months,
-      total_benign_tumors: this.state.total_benign_tumors,
-      total_situ_tumors: this.state.total_situ_tumors,
-      tumor_marker_1: this.state.tumor_marker_1,
-      tumor_marker_2: this.state.tumor_marker_2,
-      tumor_marker_3: this.state.tumor_marker_3,
-      type_of_reporting_source: this.state.type_of_reporting_source,
-      vital_status_code: this.state.vital_status_code,
-      year_of_birth: this.state.year_of_birth,
-      year_of_diagnosis: this.state.year_of_diagnosis
+      data:self.state.data,
     };
 
     axios
       .post(url, payload)
       .then(function(response) {
         if (response.data.success) {
-          self.props.history.push("/add");
+          self.props.history.push("/records");
           ToastsStore.success("Record created successfully.");
         } else {
           self.setState({ loading: false });
@@ -122,8 +59,9 @@ class AddRecord extends Component {
   };
 
   handleChange = event => {
-    this.setState({ [event.target.name]: event.target.value });
-    console.log(event.target.value);
+    const dataCopy = this.state.data;
+    dataCopy[event.target.name] = event.target.value;
+    this.setState({ data: dataCopy });
   };
 
   render() {
@@ -157,7 +95,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Name"
                           name="name"
-                          value={this.state.name}
+                          value={this.state.data.name}
                           onChange={this.handleChange}
                           required
                           autoFocus
@@ -172,7 +110,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Price"
                           name="price"
-                          value={this.state.price}
+                          value={this.state.data.price}
                           onChange={this.handleChange}
                           required
                         />
@@ -186,7 +124,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Age at Diagnosis"
                           name="age_at_diagnosis"
-                          value={this.state.age_at_diagnosis}
+                          value={this.state.data.age_at_diagnosis}
                           onChange={this.handleChange}
                           required
                         />
@@ -202,7 +140,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Behavior Code ICD"
                           name="behavior_code"
-                          value={this.state.behavior_code}
+                          value={this.state.data.behavior_code}
                           onChange={this.handleChange}
                           required
                         />
@@ -216,7 +154,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Behavior Recode for Analysis"
                           name="behavior_recode_for_analysis"
-                          value={this.state.behavior_recode_for_analysis}
+                          value={this.state.data.behavior_recode_for_analysis}
                           onChange={this.handleChange}
                           required
                         />
@@ -232,7 +170,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Breast Adjusted AJCC 6th Stage"
                           name="breast_adjusted_ajcc_6_stage"
-                          value={this.state.breast_adjusted_ajcc_6_stage}
+                          value={this.state.data.breast_adjusted_ajcc_6_stage}
                           onChange={this.handleChange}
                           required
                         />
@@ -248,7 +186,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Breast Adjusted AJCC 6th M"
                           name="breast_adjusted_ajcc_6m"
-                          value={this.state.breast_adjusted_ajcc_6m}
+                          value={this.state.data.breast_adjusted_ajcc_6m}
                           onChange={this.handleChange}
                           required
                         />
@@ -264,7 +202,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Breast Adjusted AJCC 6th N"
                           name="breast_adjusted_ajcc_6n"
-                          value={this.state.breast_adjusted_ajcc_6n}
+                          value={this.state.data.breast_adjusted_ajcc_6n}
                           onChange={this.handleChange}
                           required
                         />
@@ -280,7 +218,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Breast Adjusted AJCC 6th T"
                           name="breast_adjusted_ajcc_6t"
-                          value={this.state.breast_adjusted_ajcc_6t}
+                          value={this.state.data.breast_adjusted_ajcc_6t}
                           onChange={this.handleChange}
                           required
                         />
@@ -296,7 +234,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Lymph Nodes"
                           name="cs_lymph_nodes"
-                          value={this.state.cs_lymph_nodes}
+                          value={this.state.data.cs_lymph_nodes}
                           onChange={this.handleChange}
                           required
                         />
@@ -310,7 +248,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Lymph Nodes Eval"
                           name="cs_lymph_nodes_eval"
-                          value={this.state.cs_lymph_nodes_eval}
+                          value={this.state.data.cs_lymph_nodes_eval}
                           onChange={this.handleChange}
                           required
                         />
@@ -326,7 +264,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Mets at Dx"
                           name="cs_mets_at_dx"
-                          value={this.state.cs_mets_at_dx}
+                          value={this.state.data.cs_mets_at_dx}
                           onChange={this.handleChange}
                           required
                         />
@@ -340,7 +278,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Mets at Dx Bone"
                           name="cs_mets_at_dx_bone"
-                          value={this.state.cs_mets_at_dx_bone}
+                          value={this.state.data.cs_mets_at_dx_bone}
                           onChange={this.handleChange}
                           required
                         />
@@ -356,7 +294,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Mets at Dx Brain"
                           name="cs_mets_at_dx_brain"
-                          value={this.state.cs_mets_at_dx_brain}
+                          value={this.state.data.cs_mets_at_dx_brain}
                           onChange={this.handleChange}
                           required
                         />
@@ -372,7 +310,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Mets at Dx Liver"
                           name="cs_mets_at_dx_liver"
-                          value={this.state.cs_mets_at_dx_liver}
+                          value={this.state.data.cs_mets_at_dx_liver}
                           onChange={this.handleChange}
                           required
                         />
@@ -388,7 +326,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Mets at Dx Lung"
                           name="cs_mets_at_dx_lung"
-                          value={this.state.cs_mets_at_dx_lung}
+                          value={this.state.data.cs_mets_at_dx_lung}
                           onChange={this.handleChange}
                           required
                         />
@@ -404,7 +342,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Mets Eval"
                           name="cs_mets_eval"
-                          value={this.state.cs_mets_eval}
+                          value={this.state.data.cs_mets_eval}
                           onChange={this.handleChange}
                           required
                         />
@@ -418,7 +356,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Schema -AJCC 6th ed"
                           name="cs_schema_ajcc_6"
-                          value={this.state.cs_schema_ajcc_6}
+                          value={this.state.data.cs_schema_ajcc_6}
                           onChange={this.handleChange}
                           required
                         />
@@ -434,7 +372,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Schema v0204+"
                           name="cs_schema_v0204"
-                          value={this.state.cs_schema_v0204}
+                          value={this.state.data.cs_schema_v0204}
                           onChange={this.handleChange}
                           required
                         />
@@ -450,7 +388,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Tumor Size"
                           name="cs_tumor_size"
-                          value={this.state.cs_tumor_size}
+                          value={this.state.data.cs_tumor_size}
                           onChange={this.handleChange}
                           required
                         />
@@ -464,7 +402,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="CS Tumor Size/Ext Eval"
                           name="cs_tumor_size_ext_eval"
-                          value={this.state.cs_tumor_size_ext_eval}
+                          value={this.state.data.cs_tumor_size_ext_eval}
                           onChange={this.handleChange}
                           required
                         />
@@ -480,7 +418,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC"
                           name="derived_ajcc"
-                          value={this.state.derived_ajcc}
+                          value={this.state.data.derived_ajcc}
                           onChange={this.handleChange}
                           required
                         />
@@ -494,7 +432,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 6th T"
                           name="derived_ajcc_6_m"
-                          value={this.state.derived_ajcc_6_m}
+                          value={this.state.data.derived_ajcc_6_m}
                           onChange={this.handleChange}
                           required
                         />
@@ -510,7 +448,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 6th N"
                           name="derived_ajcc_6_n"
-                          value={this.state.derived_ajcc_6_n}
+                          value={this.state.data.derived_ajcc_6_n}
                           onChange={this.handleChange}
                           required
                         />
@@ -526,7 +464,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 6th Stage Group"
                           name="derived_ajcc_6_stage_grp"
-                          value={this.state.derived_ajcc_6_stage_grp}
+                          value={this.state.data.derived_ajcc_6_stage_grp}
                           onChange={this.handleChange}
                           required
                         />
@@ -542,7 +480,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 6th T"
                           name="derived_ajcc_6_t"
-                          value={this.state.derived_ajcc_6_t}
+                          value={this.state.data.derived_ajcc_6_t}
                           onChange={this.handleChange}
                           required
                         />
@@ -558,7 +496,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 7th Stage Group"
                           name="derived_ajcc_7_stage_grp"
-                          value={this.state.derived_ajcc_7_stage_grp}
+                          value={this.state.data.derived_ajcc_7_stage_grp}
                           onChange={this.handleChange}
                           required
                         />
@@ -574,7 +512,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 7th M"
                           name="derived_ajcc_7m"
-                          value={this.state.derived_ajcc_7m}
+                          value={this.state.data.derived_ajcc_7m}
                           onChange={this.handleChange}
                           required
                         />
@@ -590,7 +528,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 7th N"
                           name="derived_ajcc_7n"
-                          value={this.state.derived_ajcc_7n}
+                          value={this.state.data.derived_ajcc_7n}
                           onChange={this.handleChange}
                           required
                         />
@@ -606,7 +544,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Derived AJCC 7th T"
                           name="derived_ajcc_7t"
-                          value={this.state.derived_ajcc_7t}
+                          value={this.state.data.derived_ajcc_7t}
                           onChange={this.handleChange}
                           required
                         />
@@ -622,7 +560,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Diagnostic Confirmation"
                           name="diagnostic_confirmation"
-                          value={this.state.diagnostic_confirmation}
+                          value={this.state.data.diagnostic_confirmation}
                           onChange={this.handleChange}
                           required
                         />
@@ -638,7 +576,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="ER Status Recode Breast Cancer"
                           name="er_status_recode_breast_cancer"
-                          value={this.state.er_status_recode_breast_cancer}
+                          value={this.state.data.er_status_recode_breast_cancer}
                           onChange={this.handleChange}
                           required
                         />
@@ -654,7 +592,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="First Malignant Primary Indicator"
                           name="first_maligant_primary_indicator"
-                          value={this.state.first_maligant_primary_indicator}
+                          value={this.state.data.first_maligant_primary_indicator}
                           onChange={this.handleChange}
                           required
                         />
@@ -670,7 +608,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Gender"
                           name="gender"
-                          value={this.state.gender}
+                          value={this.state.data.gender}
                           onChange={this.handleChange}
                           required
                         />
@@ -684,7 +622,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Grade"
                           name="grade"
-                          value={this.state.grade}
+                          value={this.state.data.grade}
                           onChange={this.handleChange}
                           required
                         />
@@ -698,7 +636,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Histology Recode—Brain Groupings"
                           name="histology_recode_brain_groupings"
-                          value={this.state.histology_recode_brain_groupings}
+                          value={this.state.data.histology_recode_brain_groupings}
                           onChange={this.handleChange}
                           required
                         />
@@ -714,7 +652,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Histology Recode—Broad Groupings"
                           name="histology_recode_broad_groupings"
-                          value={this.state.histology_recode_broad_groupings}
+                          value={this.state.data.histology_recode_broad_groupings}
                           onChange={this.handleChange}
                           required
                         />
@@ -730,7 +668,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Marital Status"
                           name="marital_status"
-                          value={this.state.marital_status}
+                          value={this.state.data.marital_status}
                           onChange={this.handleChange}
                           required
                         />
@@ -744,7 +682,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Month of Diagnosis"
                           name="month_of_diagnosis"
-                          value={this.state.month_of_diagnosis}
+                          value={this.state.data.month_of_diagnosis}
                           onChange={this.handleChange}
                           required
                         />
@@ -760,7 +698,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Origin recode NHIA (Hispanic, Non-Hisp)"
                           name="origin_recode_niha"
-                          value={this.state.origin_recode_niha}
+                          value={this.state.data.origin_recode_niha}
                           onChange={this.handleChange}
                           required
                         />
@@ -776,7 +714,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Patient Id"
                           name="patient_id"
-                          value={this.state.patient_id}
+                          value={this.state.data.patient_id}
                           onChange={this.handleChange}
                           required
                         />
@@ -790,7 +728,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Primary by International Rules"
                           name="primary_by_internationals_rules"
-                          value={this.state.primary_by_internationals_rules}
+                          value={this.state.data.primary_by_internationals_rules}
                           onChange={this.handleChange}
                           required
                         />
@@ -806,7 +744,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Primary Site"
                           name="primary_site"
-                          value={this.state.primary_site}
+                          value={this.state.data.primary_site}
                           onChange={this.handleChange}
                           required
                         />
@@ -820,7 +758,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Reason for no Surgery"
                           name="reason_for_no_surgery"
-                          value={this.state.reason_for_no_surgery}
+                          value={this.state.data.reason_for_no_surgery}
                           onChange={this.handleChange}
                           required
                         />
@@ -836,7 +774,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Regional Nodes Examined"
                           name="regional_nodes_examined"
-                          value={this.state.regional_nodes_examined}
+                          value={this.state.data.regional_nodes_examined}
                           onChange={this.handleChange}
                           required
                         />
@@ -852,7 +790,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Regional Nodes Positive"
                           name="regional_nodes_positive"
-                          value={this.state.regional_nodes_positive}
+                          value={this.state.data.regional_nodes_positive}
                           onChange={this.handleChange}
                           required
                         />
@@ -868,7 +806,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="RX Summ—Surg Prim Site"
                           name="rx_summ"
-                          value={this.state.rx_summ}
+                          value={this.state.data.rx_summ}
                           onChange={this.handleChange}
                           required
                         />
@@ -882,7 +820,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="RX Summ—Scope Reg LN Sur"
                           name="rx_summ_scope_reg_ln_sur"
-                          value={this.state.rx_summ_scope_reg_ln_sur}
+                          value={this.state.data.rx_summ_scope_reg_ln_sur}
                           onChange={this.handleChange}
                           required
                         />
@@ -898,7 +836,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="RX Summ—Surg Oth Reg/Dis"
                           name="rx_summ_surg_oth_reg_or_dis"
-                          value={this.state.rx_summ_surg_oth_reg_or_dis}
+                          value={this.state.data.rx_summ_surg_oth_reg_or_dis}
                           onChange={this.handleChange}
                           required
                         />
@@ -914,7 +852,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Sequence Number"
                           name="sequence_number"
-                          value={this.state.sequence_number}
+                          value={this.state.data.sequence_number}
                           onChange={this.handleChange}
                           required
                         />
@@ -928,7 +866,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Country"
                           name="country"
-                          value={this.state.country}
+                          value={this.state.data.country}
                           onChange={this.handleChange}
                           required
                         />
@@ -942,7 +880,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="State County Recode"
                           name="state_county_recode"
-                          value={this.state.state_county_recode}
+                          value={this.state.data.state_county_recode}
                           onChange={this.handleChange}
                           required
                         />
@@ -958,7 +896,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Survival Months"
                           name="survival_months"
-                          value={this.state.survival_months}
+                          value={this.state.data.survival_months}
                           onChange={this.handleChange}
                           required
                         />
@@ -972,7 +910,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Total Number of Benign/Borderline Tumors"
                           name="total_benign_tumors"
-                          value={this.state.total_benign_tumors}
+                          value={this.state.data.total_benign_tumors}
                           onChange={this.handleChange}
                           required
                         />
@@ -988,7 +926,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Total Number of In Situ/malignant Tumors"
                           name="total_situ_tumors"
-                          value={this.state.total_situ_tumors}
+                          value={this.state.data.total_situ_tumors}
                           onChange={this.handleChange}
                           required
                         />
@@ -1004,7 +942,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Tumor Marker 1"
                           name="tumor_marker_1"
-                          value={this.state.tumor_marker_1}
+                          value={this.state.data.tumor_marker_1}
                           onChange={this.handleChange}
                           required
                         />
@@ -1018,7 +956,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Tumor Marker 2"
                           name="tumor_marker_2"
-                          value={this.state.tumor_marker_2}
+                          value={this.state.data.tumor_marker_2}
                           onChange={this.handleChange}
                           required
                         />
@@ -1032,7 +970,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Tumor Marker 3"
                           name="tumor_marker_3"
-                          value={this.state.tumor_marker_3}
+                          value={this.state.data.tumor_marker_3}
                           onChange={this.handleChange}
                           required
                         />
@@ -1046,7 +984,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Type of Reporting Source"
                           name="type_of_reporting_source"
-                          value={this.state.type_of_reporting_source}
+                          value={this.state.data.type_of_reporting_source}
                           onChange={this.handleChange}
                           required
                         />
@@ -1062,7 +1000,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Vital Status recode"
                           name="vital_status_code"
-                          value={this.state.vital_status_code}
+                          value={this.state.data.vital_status_code}
                           onChange={this.handleChange}
                           required
                         />
@@ -1078,7 +1016,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Year of Birth"
                           name="year_of_birth"
-                          value={this.state.year_of_birth}
+                          value={this.state.data.year_of_birth}
                           onChange={this.handleChange}
                           required
                         />
@@ -1092,7 +1030,7 @@ class AddRecord extends Component {
                           className="form-control"
                           placeholder="Year of Diagnosis"
                           name="year_of_diagnosis"
-                          value={this.state.year_of_diagnosis}
+                          value={this.state.data.year_of_diagnosis}
                           onChange={this.handleChange}
                           required
                         />

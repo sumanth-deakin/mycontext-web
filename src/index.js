@@ -10,6 +10,7 @@ import Home from "./components/Home";
 import Records from "./components/Records";
 import ViewRecord from "./components/ViewRecord";
 import AddRecord from "./components/AddRecord";
+import EditRecord from "./components/EditRecord";
 import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
@@ -21,6 +22,7 @@ ReactDOM.render(
       <PrivateRoute exact path="/" component={Home} />
       <PrivateRoute exact path="/add" component={AddRecord} />
       <PrivateRoute path="/view/:id" component={ViewRecord} />
+      <PrivateRoute path="/edit/:id" component={EditRecord} />
     </React.Fragment>
   </Router>,
   document.getElementById("root")
