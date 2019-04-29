@@ -26,7 +26,7 @@ class EditRecord extends Component {
 
     var self = this;
 
-    var url = "https://api-mycontext.herokuapp.com/record/viewRecord";
+    var url = "http://api-mycontext.herokuapp.com/record/viewRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),
@@ -56,7 +56,7 @@ class EditRecord extends Component {
     var self = this;
     self.setState({ loading: true });
 
-    var url = "https://api-mycontext.herokuapp.com/record/updateRecord";
+    var url = "http://api-mycontext.herokuapp.com/record/updateRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),
@@ -103,7 +103,10 @@ class EditRecord extends Component {
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
                 <SideBar current="add" />
               </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60">
+              <div
+                role="main"
+                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+              >
                 <h3 className="text-center">Update Medical Record</h3>
                 <hr />
                 <div className="row">
@@ -151,6 +154,50 @@ class EditRecord extends Component {
                         />
                         <label htmlFor="age_at_diagnosis">
                           Age at Diagnosis
+                        </label>
+                      </div>
+
+                      <div className="form-label-group">
+                        <input
+                          type="text"
+                          id="cancer_type"
+                          className="form-control"
+                          placeholder="Cancer Type"
+                          name="cancer_type"
+                          value={this.state.data.cancer_type}
+                          onChange={this.handleChange}
+                          required
+                        />
+                        <label htmlFor="cancer_type">Cancer Type</label>
+                      </div>
+
+                      <div className="form-label-group">
+                        <input
+                          type="text"
+                          id="gp_practice"
+                          className="form-control"
+                          placeholder="GP Practice"
+                          name="gp_practice"
+                          value={this.state.data.gp_practice}
+                          onChange={this.handleChange}
+                          required
+                        />
+                        <label htmlFor="gp_practice">GP Practice</label>
+                      </div>
+
+                      <div className="form-label-group">
+                        <input
+                          type="text"
+                          id="gp_practice_address"
+                          className="form-control"
+                          placeholder="GP Practice Address"
+                          name="gp_practice_address"
+                          value={this.state.data.gp_practice_address}
+                          onChange={this.handleChange}
+                          required
+                        />
+                        <label htmlFor="gp_practice_address">
+                          GP Practice Address
                         </label>
                       </div>
 
@@ -1066,6 +1113,20 @@ class EditRecord extends Component {
                         <label htmlFor="year_of_diagnosis">
                           Year of Diagnosis
                         </label>
+                      </div>
+
+                      <div className="form-label-group">
+                        <textarea
+                          type="text"
+                          id="others"
+                          className="form-control"
+                          placeholder="Others"
+                          name="others"
+                          value={this.state.data.others}
+                          onChange={this.handleChange}
+                          required
+                        />
+                        <label htmlFor="others">Others</label>
                       </div>
 
                       <button

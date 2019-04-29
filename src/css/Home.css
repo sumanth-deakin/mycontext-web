@@ -21,3 +21,9 @@ a.hand {
     right: 0;
     margin: auto;
 }
+
+@media screen and (max-width: 767px) {
+    .mobile-space {
+        padding-top: 100px;
+    }
+}

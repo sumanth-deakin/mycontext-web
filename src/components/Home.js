@@ -26,7 +26,7 @@ class Home extends Component {
 
     var self = this;
 
-    var url = "https://api-mycontext.herokuapp.com/record/listRecords";
+    var url = "http://api-mycontext.herokuapp.com/record/listRecords";
 
     var payload = {
       token: localStorage.getItem("access-token")
@@ -69,7 +69,7 @@ class Home extends Component {
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
                 <SideBar current="home"/>
               </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60">
+              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space">
                 <h2>Medical Records</h2>
                 <hr />
                 <table className="table table-striped table-bordered">
@@ -78,6 +78,7 @@ class Home extends Component {
                       <th scope="col">Name</th>
                       <th scope="col">Tumor Size</th>
                       <th scope="col">Gender</th>
+                      <th scope="col">Cancer Type</th>
                       <th scope="col">Year of Birth</th>
                       <th scope="col">Price</th>
                       <th scope="col">Bid</th>
@@ -89,6 +90,7 @@ class Home extends Component {
                         <th scope="row">{record.name}</th>
                         <td>{record.cs_tumor_size}</td>
                         <td>{record.gender}</td>
+                        <td>{record.cancer_type}</td>
                         <td>{record.year_of_birth}</td>
                         <td>{record.price}</td>
                         <td>

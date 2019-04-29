@@ -26,7 +26,7 @@ class Records extends Component {
 
     var self = this;
 
-    var url = "https://api-mycontext.herokuapp.com/record/viewRecord";
+    var url = "http://api-mycontext.herokuapp.com/record/viewRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),
@@ -70,7 +70,7 @@ class Records extends Component {
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
                 <SideBar current="records" />
               </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60">
+              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space">
                 <h3>{this.state.data.name + " Medical Record"}</h3>
                 {this.state.data ? (
                   <table className="table table-striped table-bordered">
@@ -82,6 +82,14 @@ class Records extends Component {
                       <tr>
                         <th>Age at Diagnosis</th>
                         <td>{this.state.data.age_at_diagnosis}</td>
+                      </tr>
+                      <tr>
+                        <th>GP Practice</th>
+                        <td>{this.state.data.gp_practice}</td>
+                      </tr>
+                      <tr>
+                        <th>GP Practice Address</th>
+                        <td>{this.state.data.gp_practice_address}</td>
                       </tr>
                       <tr>
                         <th>Behavior Code ICD</th>
@@ -334,6 +342,10 @@ class Records extends Component {
                       <tr>
                         <th>Year of Diagnosis</th>
                         <td>{this.state.data.year_of_diagnosis}</td>
+                      </tr>
+                      <tr>
+                        <th>Others</th>
+                        <td>{this.state.data.others}</td>
                       </tr>
                     </tbody>
                   </table>

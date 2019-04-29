@@ -28,7 +28,7 @@ class Records extends Component {
 
     var self = this;
 
-    var url = "https://api-mycontext.herokuapp.com/record/listOwnerRecords";
+    var url = "http://api-mycontext.herokuapp.com/record/listOwnerRecords";
 
     var payload = {
       token: localStorage.getItem("access-token")
@@ -73,7 +73,7 @@ class Records extends Component {
       loading: true
     });
 
-    var url = "https://api-mycontext.herokuapp.com/record/deleteRecord";
+    var url = "http://api-mycontext.herokuapp.com/record/deleteRecord";
     var self = this;
 
     var payload = {
@@ -121,7 +121,7 @@ class Records extends Component {
       loading: true
     });
 
-    var url = "https://api-mycontext.herokuapp.com/record/changeOwnership";
+    var url = "http://api-mycontext.herokuapp.com/record/changeOwnership";
     var self = this;
 
     var payload = {
@@ -181,7 +181,7 @@ class Records extends Component {
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
                 <SideBar current="records" />
               </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60">
+              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space">
                 <h2>Your Medical Records</h2>
                 <hr />
                 {this.state.data.length > 0 ? (
@@ -192,6 +192,7 @@ class Records extends Component {
                         <th scope="col">Tumor Size</th>
                         <th scope="col">Gender</th>
                         <th scope="col">Year of Birth</th>
+                        <th scope="col">Cancer Type</th>
                         <th scope="col">Price</th>
                         <th scope="col">Transfer</th>
                         <th scope="col">Delete</th>
@@ -206,6 +207,7 @@ class Records extends Component {
                           <td>{record.cs_tumor_size}</td>
                           <td>{record.gender}</td>
                           <td>{record.year_of_birth}</td>
+                          <td>{record.cancer_type}</td>
                           <td>{record.price}</td>
                           <td>
                             <button
@@ -335,10 +337,10 @@ class Records extends Component {
                 </button>
               </div>
               <div className="modal-body">
-                <div class="form-group">
+                <div className="form-group">
                   <input
                     type="email"
-                    class="form-control"
+                    className="form-control"
                     id="exampleInputEmail"
                     aria-describedby="emailHelp"
                     placeholder="Enter email"

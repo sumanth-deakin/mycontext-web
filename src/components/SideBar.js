@@ -51,7 +51,7 @@ class SideBar extends Component {
                 }
                 href="/records"
               >
-                Records
+               My Records
               </a>
             </div>
           </li>

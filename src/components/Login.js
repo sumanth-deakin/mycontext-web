@@ -34,7 +34,7 @@ class Login extends Component {
     var self = this;
     self.setState({ loading: true });
 
-    var url = "https://api-mycontext.herokuapp.com/user/login";
+    var url = "http://api-mycontext.herokuapp.com/user/login";
 
     var payload = {
       email: this.state.email,
@@ -79,7 +79,6 @@ class Login extends Component {
               sizeUnit={"px"}
               size={100}
               color={"#0ca678"}
-              loading="true"
             />
           </div>
         ) : (
