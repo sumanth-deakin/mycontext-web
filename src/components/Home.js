@@ -26,7 +26,7 @@ class Home extends Component {
 
     var self = this;
 
-    var url = "http://api-mycontext.herokuapp.com/record/listRecords";
+    var url = "https://api-mycontext.herokuapp.com/record/listRecords";
 
     var payload = {
       token: localStorage.getItem("access-token")
