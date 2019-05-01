@@ -29,7 +29,9 @@ class Home extends Component {
     var url = "https://api-mycontext.herokuapp.com/record/listRecords";
 
     var payload = {
-      token: localStorage.getItem("access-token")
+      token: localStorage.getItem("access-token"),
+      from: 0,
+      size: 100
     };
 
     axios
