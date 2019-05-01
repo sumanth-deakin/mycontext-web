@@ -89,7 +89,7 @@ class Records extends Component {
             data: self.state.data.filter((_, i) => i !== self.state.index)
           });
 
-          console.log(self.state.data)
+          console.log(self.state.data);
 
           ToastsStore.success(response.data.message);
           self.setState({
@@ -181,82 +181,87 @@ class Records extends Component {
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
                 <SideBar current="records" />
               </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space">
+              <div
+                role="main"
+                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+              >
                 <h2>Your Medical Records</h2>
                 <hr />
                 {this.state.data.length > 0 ? (
-                  <table className="table table-striped table-bordered">
-                    <thead className="thead-dark">
-                      <tr>
-                        <th scope="col">Name</th>
-                        <th scope="col">Tumor Size</th>
-                        <th scope="col">Gender</th>
-                        <th scope="col">Year of Birth</th>
-                        <th scope="col">Cancer Type</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Transfer</th>
-                        <th scope="col">Delete</th>
-                        <th scope="col">Edit</th>
-                        <th scope="col">View</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {this.state.data.map((record, index) => (
-                        <tr key={index}>
-                          <th scope="row">{record.name}</th>
-                          <td>{record.cs_tumor_size}</td>
-                          <td>{record.gender}</td>
-                          <td>{record.year_of_birth}</td>
-                          <td>{record.cancer_type}</td>
-                          <td>{record.price}</td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn btn-secondary"
-                              onClick={event => {
-                                this.handleTransfer(event, index);
-                              }}
-                            >
-                              Transfer
-                            </button>
-                          </td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn btn-danger"
-                              onClick={event => {
-                                this.handleDelete(event, index);
-                              }}
-                            >
-                              Delete
-                            </button>
-                          </td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn btn-warning"
-                              onClick={event => {
-                                this.editDetails(event, record._id);
-                              }}
-                            >
-                              Edit
-                            </button>
-                          </td>
-                          <td>
-                            <button
-                              type="button"
-                              className="btn btn-primary"
-                              onClick={event => {
-                                this.viewDetails(event, record._id);
-                              }}
-                            >
-                              View
-                            </button>
-                          </td>
+                  <div className="table-responsive">
+                    <table className="table table-striped table-bordered">
+                      <thead className="thead-dark">
+                        <tr>
+                          <th scope="col">Name</th>
+                          <th scope="col">Tumor Size</th>
+                          <th scope="col">Gender</th>
+                          <th scope="col">Year of Birth</th>
+                          <th scope="col">Cancer Type</th>
+                          <th scope="col">Price</th>
+                          <th scope="col">Transfer</th>
+                          <th scope="col">Delete</th>
+                          <th scope="col">Edit</th>
+                          <th scope="col">View</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        {this.state.data.map((record, index) => (
+                          <tr key={index}>
+                            <th scope="row">{record.name}</th>
+                            <td>{record.cs_tumor_size}</td>
+                            <td>{record.gender}</td>
+                            <td>{record.year_of_birth}</td>
+                            <td>{record.cancer_type}</td>
+                            <td>{record.price}</td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-secondary"
+                                onClick={event => {
+                                  this.handleTransfer(event, index);
+                                }}
+                              >
+                                Transfer
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-danger"
+                                onClick={event => {
+                                  this.handleDelete(event, index);
+                                }}
+                              >
+                                Delete
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-warning"
+                                onClick={event => {
+                                  this.editDetails(event, record._id);
+                                }}
+                              >
+                                Edit
+                              </button>
+                            </td>
+                            <td>
+                              <button
+                                type="button"
+                                className="btn btn-primary"
+                                onClick={event => {
+                                  this.viewDetails(event, record._id);
+                                }}
+                              >
+                                View
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
                 ) : (
                   <p>No medical records found, create one.</p>
                 )}

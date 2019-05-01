@@ -67,41 +67,46 @@ class Home extends Component {
           <div className="container-fluid">
             <div className="row">
               <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <SideBar current="home"/>
+                <SideBar current="home" />
               </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space">
+              <div
+                role="main"
+                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+              >
                 <h2>Medical Records</h2>
                 <hr />
-                <table className="table table-striped table-bordered">
-                  <thead className="thead-dark">
-                    <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">Tumor Size</th>
-                      <th scope="col">Gender</th>
-                      <th scope="col">Cancer Type</th>
-                      <th scope="col">Year of Birth</th>
-                      <th scope="col">Price</th>
-                      <th scope="col">Bid</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.data.map((record, index) => (
-                      <tr key={index}>
-                        <th scope="row">{record.name}</th>
-                        <td>{record.cs_tumor_size}</td>
-                        <td>{record.gender}</td>
-                        <td>{record.cancer_type}</td>
-                        <td>{record.year_of_birth}</td>
-                        <td>{record.price}</td>
-                        <td>
-                          <button type="button" className="btn btn-warning">
-                            Bid
-                          </button>
-                        </td>
+                <div className="table-responsive">
+                  <table className="table table-striped table-bordered">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tumor Size</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Cancer Type</th>
+                        <th scope="col">Year of Birth</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Bid</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
+                    </thead>
+                    <tbody>
+                      {this.state.data.map((record, index) => (
+                        <tr key={index}>
+                          <th scope="row">{record.name}</th>
+                          <td>{record.cs_tumor_size}</td>
+                          <td>{record.gender}</td>
+                          <td>{record.cancer_type}</td>
+                          <td>{record.year_of_birth}</td>
+                          <td>{record.price}</td>
+                          <td>
+                            <button type="button" className="btn btn-warning">
+                              Bid
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>

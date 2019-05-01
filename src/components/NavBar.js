@@ -28,6 +28,16 @@ class NavBar extends Component {
         />
         <ul className="navbar-nav px-3">
           <li className="nav-item text-nowrap">
+            <a className="nav-link" href="/records">
+              My Records
+            </a>
+          </li>
+          <li className="nav-item text-nowrap d-md-none">
+            <a className="nav-link" href="/add">
+              Add Record
+            </a>
+          </li>
+          <li className="nav-item text-nowrap d-md-none">
             <a className="nav-link hand" onClick={this.logout}>
               Sign out
             </a>
