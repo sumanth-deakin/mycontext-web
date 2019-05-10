@@ -34,7 +34,7 @@ class AddRecord extends Component {
     var self = this;
     self.setState({ loading: true });
 
-    var url = "https://api-mycontext.herokuapp.com/record/addRecord";
+    var url = "http://localhost:9000/record/addRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),

@@ -26,7 +26,7 @@ class EditRecord extends Component {
 
     var self = this;
 
-    var url = "https://api-mycontext.herokuapp.com/record/viewRecord";
+    var url = "http://localhost:9000/record/viewRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),
@@ -56,7 +56,7 @@ class EditRecord extends Component {
     var self = this;
     self.setState({ loading: true });
 
-    var url = "https://api-mycontext.herokuapp.com/record/updateRecord";
+    var url = "http://localhost:9000/record/updateRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),

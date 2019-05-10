@@ -28,7 +28,7 @@ class Records extends Component {
 
     var self = this;
 
-    var url = "https://api-mycontext.herokuapp.com/record/listOwnerRecords";
+    var url = "http://localhost:9000/record/listOwnerRecords";
 
     var payload = {
       token: localStorage.getItem("access-token"),
@@ -75,7 +75,7 @@ class Records extends Component {
       loading: true
     });
 
-    var url = "https://api-mycontext.herokuapp.com/record/deleteRecord";
+    var url = "http://localhost:9000/record/deleteRecord";
     var self = this;
 
     var payload = {
@@ -123,7 +123,7 @@ class Records extends Component {
       loading: true
     });
 
-    var url = "https://api-mycontext.herokuapp.com/record/changeOwnership";
+    var url = "http://localhost:9000/record/changeOwnership";
     var self = this;
 
     var payload = {
@@ -201,8 +201,8 @@ class Records extends Component {
                           <th scope="col">Cancer Type</th>
                           <th scope="col">Price</th>
                           <th scope="col">Transfer</th>
-                          <th scope="col">Delete</th>
-                          <th scope="col">Edit</th>
+                          {/* <th scope="col">Delete</th>
+                          <th scope="col">Edit</th> */}
                           <th scope="col">View</th>
                         </tr>
                       </thead>
@@ -218,7 +218,7 @@ class Records extends Component {
                             <td>
                               <button
                                 type="button"
-                                className="btn btn-secondary"
+                                className="btn btn-danger"
                                 onClick={event => {
                                   this.handleTransfer(event, index);
                                 }}
@@ -226,7 +226,7 @@ class Records extends Component {
                                 Transfer
                               </button>
                             </td>
-                            <td>
+                            {/* <td>
                               <button
                                 type="button"
                                 className="btn btn-danger"
@@ -247,11 +247,11 @@ class Records extends Component {
                               >
                                 Edit
                               </button>
-                            </td>
+                            </td> */}
                             <td>
                               <button
                                 type="button"
-                                className="btn btn-primary"
+                                className="btn btn-info"
                                 onClick={event => {
                                   this.viewDetails(event, record._id);
                                 }}

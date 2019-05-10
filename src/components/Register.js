@@ -41,7 +41,7 @@ class Register extends Component {
     } else {
       self.setState({ loading: true });
 
-      var url = "https://api-mycontext.herokuapp.com/user/register";
+      var url = "http://localhost:9000/user/register";
 
       var payload = {
         name: this.state.name,
@@ -86,7 +86,6 @@ class Register extends Component {
               sizeUnit={"px"}
               size={100}
               color={"#0ca678"}
-              loading="true"
             />
           </div>
         ) : (
@@ -179,9 +178,9 @@ class Register extends Component {
                     </div>
 
                     <button
-                      className="btn btn-lg btn-primary btn-block text-uppercase disable"
+                      className="btn btn-lg btn-primary btn-block text-uppercase"
                       type="submit"
-                      disabled>
+                    >
                       Create
                     </button>
                   </form>
