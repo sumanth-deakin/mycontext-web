@@ -95,7 +95,7 @@ class EditRecord extends Component {
         <NavBar {...this.props} />
         {this.state.loading ? (
           <div className="loading">
-            <RingLoader sizeUnit={"px"} size={100} color={"#212529"} />
+            <RingLoader sizeUnit={"px"} size={80} color={"#0ca678"} />
           </div>
         ) : (
           <div className="container-fluid">

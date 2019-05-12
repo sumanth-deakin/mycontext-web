@@ -173,71 +173,70 @@ class Records extends Component {
           position={ToastsContainerPosition.TOP_RIGHT}
         />
         <NavBar {...this.props} />
-        {this.state.loading ? (
-          <div className="loading">
-            <RingLoader sizeUnit={"px"} size={100} color={"#212529"} />
-          </div>
-        ) : (
-          <div className="container-fluid">
-            <div className="row">
-              <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <SideBar current="records" />
-              </nav>
-              <div
-                role="main"
-                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
-              >
-                <h2>Your Medical Records</h2>
-                <hr />
-                {this.state.data.length > 0 ? (
-                  <div className="table-responsive">
-                    <table className="table table-striped table-bordered">
-                      <thead className="thead-dark">
-                        <tr>
-                          <th scope="col">Name</th>
-                          <th scope="col">Tumor Size</th>
-                          <th scope="col">Gender</th>
-                          <th scope="col">Year of Birth</th>
-                          <th scope="col">Cancer Type</th>
-                          <th scope="col">Price</th>
-                          <th scope="col">Transfer</th>
-                          {/* <th scope="col">Delete</th>
-                          <th scope="col">Edit</th> */}
-                          <th scope="col">View</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {this.state.data.map((record, index) => (
-                          <tr key={index}>
-                            <th scope="row">{record.name}</th>
-                            <td>{record.cs_tumor_size}</td>
-                            <td>{record.gender}</td>
-                            <td>{record.year_of_birth}</td>
-                            <td>{record.cancer_type}</td>
-                            <td>{record.price}</td>
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-danger"
-                                onClick={event => {
-                                  this.handleTransfer(event, index);
-                                }}
-                              >
-                                Transfer
-                              </button>
-                            </td>
-                            {/* <td>
-                              <button
-                                type="button"
-                                className="btn btn-danger"
-                                onClick={event => {
-                                  this.handleDelete(event, index);
-                                }}
-                              >
-                                Delete
-                              </button>
-                            </td>
-                            <td>
+        <div className="container-fluid">
+          <div className="row">
+            <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+              <SideBar current="records" />
+            </nav>
+            <div
+              role="main"
+              className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+            >
+              <h2>Your Medical Records</h2>
+              <hr />
+              {this.state.loading ? (
+                <div className="loading">
+                  <RingLoader sizeUnit={"px"} size={80} color={"#0ca678"} />
+                </div>
+              ) : this.state.data.length > 0 ? (
+                <div className="table-responsive">
+                  <table className="table table-striped">
+                    <thead className="thead-dark">
+                      <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Tumor Size</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Year of Birth</th>
+                        <th scope="col">Cancer Type</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Transfer</th>
+                        <th scope="col">Delete</th>
+                        {/* <th scope="col">Edit</th> */}
+                        <th scope="col">View</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.data.map((record, index) => (
+                        <tr key={index}>
+                          <th scope="row">{record.name}</th>
+                          <td>{record.cs_tumor_size}</td>
+                          <td>{record.gender}</td>
+                          <td>{record.year_of_birth}</td>
+                          <td>{record.cancer_type}</td>
+                          <td>{record.price}</td>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-warning"
+                              onClick={event => {
+                                this.handleTransfer(event, index);
+                              }}
+                            >
+                              Transfer
+                            </button>
+                          </td>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                              onClick={event => {
+                                this.handleDelete(event, index);
+                              }}
+                            >
+                              Delete
+                            </button>
+                          </td>
+                          {/* <td>
                               <button
                                 type="button"
                                 className="btn btn-warning"
@@ -248,30 +247,29 @@ class Records extends Component {
                                 Edit
                               </button>
                             </td> */}
-                            <td>
-                              <button
-                                type="button"
-                                className="btn btn-info"
-                                onClick={event => {
-                                  this.viewDetails(event, record._id);
-                                }}
-                              >
-                                View
-                              </button>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                ) : (
-                  <p>No medical records found, create one.</p>
-                )}
-              </div>
+                          <td>
+                            <button
+                              type="button"
+                              className="btn btn-success"
+                              onClick={event => {
+                                this.viewDetails(event, record._id);
+                              }}
+                            >
+                              View
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              ) : (
+                <p>No medical records found, create one.</p>
+              )}
             </div>
           </div>
-        )}
-
+        </div>
+        }
         <div
           className="modal fade"
           id="deleteModal"

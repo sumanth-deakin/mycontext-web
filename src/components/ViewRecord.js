@@ -60,17 +60,21 @@ class Records extends Component {
           position={ToastsContainerPosition.TOP_RIGHT}
         />
         <NavBar {...this.props} />
-        {this.state.loading ? (
-          <div className="loading">
-            <RingLoader sizeUnit={"px"} size={100} color={"#212529"} />
-          </div>
-        ) : (
-          <div className="container-fluid">
-            <div className="row">
-              <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <SideBar current="records" />
-              </nav>
-              <div role="main" className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space">
+
+        <div className="container-fluid">
+          <div className="row">
+            <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+              <SideBar current="records" />
+            </nav>
+            {this.state.loading ? (
+              <div className="loading">
+                <RingLoader sizeUnit={"px"} size={80} color={"#0ca678"} />
+              </div>
+            ) : (
+              <div
+                role="main"
+                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+              >
                 <h3>{this.state.data.name + " Medical Record"}</h3>
                 {this.state.data ? (
                   <table className="table table-striped table-bordered">
@@ -303,9 +307,7 @@ class Records extends Component {
                       </tr>
                       <tr>
                         <th>Survival Months</th>
-                        <td>
-                          {this.state.data.survival_months}
-                        </td>
+                        <td>{this.state.data.survival_months}</td>
                       </tr>
                       <tr>
                         <th>Total Number of Benign/Borderline Tumors</th>
@@ -353,9 +355,9 @@ class Records extends Component {
                   <p>No medical records found, create one.</p>
                 )}
               </div>
-            </div>
+            )}
           </div>
-        )}
+        </div>
       </React.Fragment>
     );
   }

@@ -61,24 +61,24 @@ class Home extends Component {
           position={ToastsContainerPosition.TOP_RIGHT}
         />
         <NavBar {...this.props} />
-        {this.state.loading ? (
-          <div className="loading">
-            <RingLoader sizeUnit={"px"} size={100} color={"#212529"} />
-          </div>
-        ) : (
-          <div className="container-fluid">
-            <div className="row">
-              <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <SideBar current="home" />
-              </nav>
-              <div
-                role="main"
-                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
-              >
-                <h2>Medical Records</h2>
-                <hr />
+        <div className="container-fluid">
+          <div className="row">
+            <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+              <SideBar current="home" />
+            </nav>
+            <div
+              role="main"
+              className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+            >
+              <h2>Medical Records</h2>
+              <hr />
+              {this.state.loading ? (
+                <div className="loading">
+                  <RingLoader sizeUnit={"px"} size={80} color={"#0ca678"} />
+                </div>
+              ) : (
                 <div className="table-responsive">
-                  <table className="table table-striped table-bordered">
+                  <table className="table table-striped ">
                     <thead className="thead-dark">
                       <tr>
                         <th scope="col">Name</th>
@@ -109,10 +109,11 @@ class Home extends Component {
                     </tbody>
                   </table>
                 </div>
-              </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
+        }
       </React.Fragment>
     );
   }

@@ -84,7 +84,7 @@ class Register extends Component {
           <div className="loading">
             <RingLoader
               sizeUnit={"px"}
-              size={100}
+              size={80}
               color={"#0ca678"}
             />
           </div>

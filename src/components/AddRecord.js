@@ -72,22 +72,22 @@ class AddRecord extends Component {
           position={ToastsContainerPosition.TOP_RIGHT}
         />
         <NavBar {...this.props} />
-        {this.state.loading ? (
-          <div className="loading">
-            <RingLoader sizeUnit={"px"} size={100} color={"#212529"} />
-          </div>
-        ) : (
-          <div className="container-fluid">
-            <div className="row">
-              <nav className="col-md-2 d-none d-md-block bg-light sidebar">
-                <SideBar current="add" />
-              </nav>
-              <div
-                role="main"
-                className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
-              >
-                <h3 className="text-center">Add Medical Record</h3>
-                <hr />
+        <div className="container-fluid">
+          <div className="row">
+            <nav className="col-md-2 d-none d-md-block bg-light sidebar">
+              <SideBar current="add" />
+            </nav>
+            <div
+              role="main"
+              className="col-md-9 ml-sm-auto col-lg-10 pt-60 mobile-space"
+            >
+              <h3 className="text-left">Add Medical Record</h3>
+              <hr />
+              {this.state.loading ? (
+                <div className="loading">
+                  <RingLoader sizeUnit={"px"} size={80} color={"#0ca678"} />
+                </div>
+              ) : (
                 <div className="row">
                   <div className="col-sm-9 col-md-7 col-lg-5 mx-auto mtb">
                     <form className="form-signin" onSubmit={this.handleSubmit}>
@@ -1117,10 +1117,10 @@ class AddRecord extends Component {
                     </form>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </React.Fragment>
     );
   }
