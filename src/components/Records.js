@@ -28,7 +28,7 @@ class Records extends Component {
 
     var self = this;
 
-    var url = "http://localhost:9000/record/listOwnerRecords";
+    var url = "http://api-mycontext.herokuapp.com/record/listOwnerRecords";
 
     var payload = {
       token: localStorage.getItem("access-token"),
@@ -75,7 +75,7 @@ class Records extends Component {
       loading: true
     });
 
-    var url = "http://localhost:9000/record/deleteRecord";
+    var url = "http://api-mycontext.herokuapp.com/record/deleteRecord";
     var self = this;
 
     var payload = {
@@ -123,7 +123,7 @@ class Records extends Component {
       loading: true
     });
 
-    var url = "http://localhost:9000/record/changeOwnership";
+    var url = "http://api-mycontext.herokuapp.com/record/changeOwnership";
     var self = this;
 
     var payload = {

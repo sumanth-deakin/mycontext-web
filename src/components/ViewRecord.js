@@ -26,7 +26,7 @@ class Records extends Component {
 
     var self = this;
 
-    var url = "http://localhost:9000/record/viewRecord";
+    var url = "http://api-mycontext.herokuapp.com/record/viewRecord";
 
     var payload = {
       token: localStorage.getItem("access-token"),

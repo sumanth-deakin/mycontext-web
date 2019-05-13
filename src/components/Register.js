@@ -41,7 +41,7 @@ class Register extends Component {
     } else {
       self.setState({ loading: true });
 
-      var url = "http://localhost:9000/user/register";
+      var url = "http://api-mycontext.herokuapp.com/user/register";
 
       var payload = {
         name: this.state.name,
