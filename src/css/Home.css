@@ -22,3 +22,15 @@ a.hand {
         padding-top: 150px;
     }
 }
+
+.spinner-loading {
+    position: fixed;
+    top: 55%;
+    left: 65%;
+}
+
+.last-loading {
+    position: fixed;
+    top: 75%;
+    left: 35%;
+}
