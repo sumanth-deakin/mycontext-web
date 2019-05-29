@@ -15,14 +15,37 @@ class AddRecord extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: false,
-      data: {}
+      loading: true,
+      data: {},
+      users: [],
+      patient_id: ""
     };
   }
 
   componentDidMount() {
     document.title = "Create Medical Record";
     document.body.classList.add("white");
+
+    var self = this;
+
+    var url = "https://api-mycontext.herokuapp.com/user/list-users";
+
+    var payload = {
+      token: localStorage.getItem("access-token")
+    };
+
+    axios
+      .post(url, payload)
+      .then(function(response) {
+        if (response.data.success) {
+          self.setState({ users: response.data.data, loading: false });
+        } else {
+          ToastsStore.error(response.data.message);
+        }
+      })
+      .catch(function(error) {
+        ToastsStore.error("Something went wrong!");
+      });
   }
 
   componentWillUnmount() {
@@ -31,37 +54,48 @@ class AddRecord extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    var self = this;
-    self.setState({ loading: true });
 
-    var url = "https://api-mycontext.herokuapp.com/record/addRecord";
+    if (this.state.patient_id !== undefined && this.state.patient_id === "") {
+      ToastsStore.error("Please select patient");
+    } else {
+      var self = this;
+      self.setState({ loading: true });
 
-    var payload = {
-      token: localStorage.getItem("access-token"),
-      data: self.state.data
-    };
+      var url = "https://api-mycontext.herokuapp.com/record/addRecord";
+      var payload = {
+        token: localStorage.getItem("access-token"),
+        data: self.state.data,
+        patient_id: self.state.patient_id
+      };
 
-    axios
-      .post(url, payload)
-      .then(function(response) {
-        if (response.data.success) {
-          self.props.history.push("/records");
-          ToastsStore.success("Record created successfully.");
-        } else {
+      axios
+        .post(url, payload)
+        .then(function(response) {
+          if (response.data.success) {
+            self.props.history.push("/");
+            ToastsStore.success("Record created successfully.");
+          } else {
+            self.setState({ loading: false });
+            ToastsStore.error(response.data.message);
+          }
+        })
+        .catch(function(error) {
           self.setState({ loading: false });
-          ToastsStore.error(response.data.message);
-        }
-      })
-      .catch(function(error) {
-        self.setState({ loading: false });
-        ToastsStore.error("Something went wrong!");
-      });
+          ToastsStore.error("Something went wrong!");
+        });
+    }
   };
 
   handleChange = event => {
     const dataCopy = this.state.data;
     dataCopy[event.target.name] = event.target.value;
     this.setState({ data: dataCopy });
+  };
+
+  handleOptionChange = event => {
+    var user = JSON.parse(event.target.value);
+    this.state.data["name"]=user.name;
+    this.setState({ [event.target.name]: user._id });
   };
 
   render() {
@@ -91,19 +125,24 @@ class AddRecord extends Component {
                 <div className="row">
                   <div className="col-sm-9 col-md-7 col-lg-5 mx-auto mtb">
                     <form className="form-signin" onSubmit={this.handleSubmit}>
-                      <div className="form-label-group">
-                        <input
-                          type="text"
-                          id="inputName"
-                          className="form-control"
-                          placeholder="Name"
-                          name="name"
-                          value={this.state.data.name}
-                          onChange={this.handleChange}
-                          required
-                          autoFocus
-                        />
-                        <label htmlFor="inputName">Name</label>
+                      <div className="form-group">
+                        <select
+                          className="form-control select"
+                          name="patient_id"
+                          value={this.state.patient_id}
+                          onChange={this.handleOptionChange}
+                        >
+                          <option value="" defaultValue>
+                            Select patient
+                          </option>
+                          {this.state.users.map((user, key) => {
+                            return (
+                              <option key={key} value={JSON.stringify(user)}>
+                                {user.name}
+                              </option>
+                            );
+                          })}
+                        </select>
                       </div>
 
                       <div className="form-label-group">

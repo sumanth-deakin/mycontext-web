@@ -49,6 +49,7 @@ class Login extends Component {
           localStorage.setItem("name", response.data.name);
           localStorage.setItem("user_id", response.data.user_id);
           localStorage.setItem("email", response.data.email);
+          localStorage.setItem("user_type", response.data.user_type);
           self.props.history.push("/");
         } else {
           self.setState({ loading: false });

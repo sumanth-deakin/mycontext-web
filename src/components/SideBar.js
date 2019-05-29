@@ -6,7 +6,9 @@ import { mdiHome, mdiFile,mdiPlus } from "@mdi/js";
 class SideBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      user_type: localStorage.getItem("user_type")
+    };
   }
 
   render() {
@@ -56,7 +58,7 @@ class SideBar extends Component {
             </div>
           </li>
 
-          <li className="nav-item">
+          <li className={this.state.user_type === "Patient"? "d-none":"nav-item"}>
             <div className="box">
               <Icon
                 path={mdiPlus}

@@ -4,13 +4,16 @@ import "../css/NavBar.css";
 class NavBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      user_type: localStorage.getItem("user_type")
+    };
   }
 
   logout = event => {
     localStorage.removeItem("access-token");
     localStorage.removeItem("name");
     localStorage.removeItem("email");
+    localStorage.removeItem("user_type");
     this.props.history.push("/");
   };
 
@@ -32,7 +35,7 @@ class NavBar extends Component {
               My Records
             </a>
           </li>
-          <li className="nav-item text-nowrap d-md-none">
+          <li className= {this.state.user_type === "Patient"? "d-none" :"nav-item text-nowrap d-md-none"}>
             <a className="nav-link" href="/add">
               Add Record
             </a>
